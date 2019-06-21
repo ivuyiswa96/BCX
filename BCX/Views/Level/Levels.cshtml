@@ -1,0 +1,88 @@
+﻿@model IEnumerable<BCX.Models.LevelType>
+
+
+<script type="text/javascript">
+        function displayModal() {
+            console.log("tesing")
+            $.ajax({
+                type: "GET",
+                url: "/Level/LevelModal",
+                success: function (data) {
+                    $("#level").empty().html(data);
+                    console.log(data);
+                    $("#exampleModal").modal('show');
+
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }     function UpdateModal() {
+            console.log("tesing")
+            $.ajax({
+                type: "GET",
+                url: "/Level/UpdateModal",
+                success: function (data) {
+                    $("#level").empty().html(data);
+                    console.log(data);
+                    $("#exampleModal").modal('show');
+
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+    </script>
+
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+    <div class="alert alert-danger">
+        <strong>@ViewBag.ErrorMessage</strong>
+    </div>
+}
+<div class="jumbotron ">
+    <h2>Employees </h2>
+</div>
+
+<div class="row">
+    <input type="button" onclick="displayModal();" class="btn btn-primary" value="Create Role" />
+</div>
+
+<div class="col-sm-10 row">
+    <div id="level"></div>
+    <table class="table ">
+        <thead>
+            <tr>
+                <th scope="col">Level ID</th>
+                <th scope="col">Level Description</th>
+                <th scope="col">Rate Per Hour</th>
+
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var level in Model)
+            {
+                <tr>
+                    <th scope="row">@level.LevelTypeId</th>
+                    <td>@level.Description</td>
+                    <td>@level.Price</td>
+
+                    <td>
+                        <a asp-controller="Level" asp-action="UpdateLevel" asp-route-levelId="@level.LevelTypeId" class="btn btn-dark">Update</a>
+                    </td>
+                    <td>
+
+                        <a asp-controller="Level" asp-action="RemoveLevel" asp-route-levelId="@level.LevelTypeId" class="btn btn-danger">Remove</a>
+                    </td>
+                </tr>
+
+            }
+
+
+        </tbody>
+    </table>
+
+</div>

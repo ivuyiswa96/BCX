@@ -1,0 +1,83 @@
+﻿@model BCX.Models.RegistrationViewModel
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+    <div class="alert alert-danger">
+        <strong>@ViewBag.ErrorMessage</strong>
+    </div>
+}
+<div class="jumbotron ">
+    <h2>Update Personal Details </h2>
+</div>
+
+
+<form asp-action="UpdatePerson" asp-controller="Account" method="post">
+    <div asp-validation-summary="All"></div>
+
+    <div class="container">
+
+        <div class="col-md-12">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/Account/GetPerson?personId=@Model.PersonId">Personal Details</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Employment/UpdateEmployment?personId=@Model.PersonId">Employment Details</a>
+                </li>
+
+
+            </ul>
+        </div>
+
+        <div>
+            <h3>    Personal Details</h3>
+        </div>
+
+        <input class="form-control" asp-for="PersonId" value="@Model.PersonId" type="hidden" />
+        <input class="form-control" asp-for="UserId" value="@Model.UserId" type="hidden" />
+
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <label asp-for="FirstName">First Name</label>
+                <input class="form-control" asp-for="FirstName" value="@Model.FirstName" />
+                <span asp-validation-for="FirstName"></span>
+            </div>
+
+            <div class="col-sm-6 form-group">
+                <label asp-for="SecondName">Second Name</label>
+                <input class="form-control" asp-for="SecondName" value="@Model.SecondName" />
+                <span asp-validation-for="SecondName"></span>
+            </div>
+
+            <div class="col-sm-6 form-group">
+                <label asp-for="LastName">Last Name </label>
+                <input class="form-control" asp-for="LastName" value="@Model.LastName" />
+                <span asp-validation-for="LastName"></span>
+            </div>
+            <div class="col-sm-6 form-group">
+                <label asp-for="IdNumber">ID Number </label>
+                <input class="form-control" asp-for="IdNumber" value="@Model.IdNumber" />
+                <span asp-validation-for="IdNumber"></span>
+            </div>
+        </div>
+
+
+
+
+
+
+        <div class="btn-group">
+            <input class="btn btn-success" type="submit" value="Save" />
+        </div>
+    </div>
+
+</form>
+
+
+

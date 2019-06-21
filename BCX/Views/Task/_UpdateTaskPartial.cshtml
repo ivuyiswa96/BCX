@@ -1,0 +1,44 @@
+﻿@model BCX.Models.ViewModels.EmploymentViewModel
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Set Task</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form asp-action="UpdateTask" asp-controller="Task" method="post">
+                <div class="modal-body">
+                    <input asp-for="EmployeeId" name="EmployeeId" id="EmployeeId" type="text"/>
+             
+                        <div class="row">
+                            <label asp-for="HourWorked" class="form-inline"> Set Task Hours</label>
+                            <input class="form-control"  asp-for="HourWorked" />
+                        </div>
+                    
+                    <div class="row">
+                            <label asp-for="RatePerHour" class="form-inline"> Set Amount</label>
+                            <input class="form-control"  asp-for="RatePerHour" />
+                      </div>
+                    <div class="row">
+                            <label asp-for="Description" class="form-inline"> Task Description</label>
+                            <textarea class="form-control"  asp-for="Description" />
+                      </div>
+                    
+
+                    
+
+                </div>
+                <div class="modal-footer text-center">
+              
+                    <input type="submit" class="btn btn-block btn-primary" value="Update Task"/>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

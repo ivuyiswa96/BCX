@@ -1,0 +1,122 @@
+﻿@model BCX.Models.ViewModels.EmploymentViewModel
+
+<div class="jumbotron ">
+    <h2>Employment </h2>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+
+
+        $(document).ready(function () {
+            $("#EmpType").change(function () {
+                var selected = $(this).children("option:selected").val();
+                console.log(selected);
+                if (selected == "employer") {
+                    var test = $("#jobId").hide();
+                    console.log(test);
+                    $("#discId").hide();
+                    $("#levelId").hide();
+                    $("#salaryId").hide();
+
+
+                } else {
+
+                    $("#jobId").show();
+                    $("#discId").show();
+                    $("#levelId").show();
+                    $("#salaryId").show();
+                }
+            });
+        });
+
+    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+    <div class="alert alert-danger">
+        <strong>@ViewBag.ErrorMessage</strong>
+    </div>
+}
+
+<form asp-action="UpdateEmployement" asp-controller="Employment" method="post">
+
+
+    <div class="container">
+
+        <div class="col-md-12">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/Account/UpdatePerson?personId=@Model.PersonId">Personal Details</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Employment/UpdateEmployment?personId=@Model.PersonId">Employment Details</a>
+                </li>
+
+            </ul>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4 form-group">
+                <label asp-for="CompanyName">Company Name</label>
+                <input class="form-control" asp-for="CompanyName" value="@Model.CompanyName" />
+                <span asp-validation-for="CompanyName"></span>
+            </div>
+
+            <div class="col-sm-4 form-group " id="jobId">
+                <label class="form-inline" asp-for="JobTitle">Job Tittle</label>
+                <select class="form-control" asp-for="JobTitle" asp-items="Html.GetEnumSelectList<JobTitle>()">
+                    <option selected="selected" value="">Please select</option>
+                </select>
+                <span asp-validation-for="JobTitle"></span>
+            </div>
+
+
+
+
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4 form-group " id="levelId">
+                <label class="form-inline" asp-for="LevelType.LevelTypeId">Casual Employee Level</label>
+                <select class="form-control" asp-for="LevelType.LevelTypeId" asp-items="ViewBag.Levels">
+                    <option selected="selected" value="">Please select</option>
+                </select>
+                <span asp-validation-for="LevelType.LevelTypeId"></span>
+
+
+            </div>
+
+            <div class="col-sm-4 form-group ">
+                <label asp-for="EmpCode">Employment Code </label>
+                <input class="form-control" asp-for="EmpCode" value="@Model.EmpCode" />
+                <span asp-validation-for="EmpCode"></span>
+
+            </div>
+
+        </div>
+        <div class="col-sm-8 text-center form-group row " id="discId">
+            <label asp-for="JobDescription">Job Description </label>
+            <textarea class="form-control" asp-for="JobDescription"></textarea>
+            <span asp-validation-for="JobDescription"></span>
+        </div>
+        <input type="hidden" asp-for="EmploymentType" value="employee" />
+        <input type="hidden" asp-for="PersonId" value="@Model.PersonId" />
+
+        <input class="form-control" asp-for="EmployeeId" value="@Model.EmployeeId" type="hidden" />
+
+        <div class="btn-group text-center">
+            <input class="btn btn-primary rounded" type="submit" value="Save " />
+        </div>
+    </div>
+
+</form>
+
+
+@*// @Html.Partial("_EmployerPartial.cshtml");*@
+
+
+

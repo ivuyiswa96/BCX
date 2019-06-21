@@ -1,0 +1,94 @@
+﻿@model List<BCX.Models.TaskType>
+
+@section Scripts{
+
+
+    <script>
+        function UpdateModal(id) {
+            console.log("tesing")
+            $.ajax({
+                type: "GET",
+                url: "/Task/GetTaskById",
+                data: { taskId: id },
+                success: function (data) {
+
+                    $("#emp").empty().html(data);
+                    console.log(data);
+                    $("#exampleModal").modal('show');
+                    //  $("#EmployeeId").val(id);
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+    </script>
+
+}
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+    <div class="alert alert-danger">
+        <strong>@ViewBag.ErrorMessage</strong>
+    </div>
+}
+<div id="emp"></div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Task ID</th>
+            <th scope="col">Task Description</th>
+            <th scope="col"> Employee Level </th>
+            <th scope="col"> Level Price </th>
+            <th scope="col">Duration</th>
+            <th scope="col">Task Price</th>
+            <th scope="col"></th>
+
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th scope="row">@item.TaskTypeId</th>
+                <td>@item.Description</td>
+                <td>@item.Employee.LevelType.Description</td>
+                <td>@item.Employee.LevelType.Price</td>
+                <td>@item.Duration</td>
+                <td>@item.RatePerHour</td>
+
+                <td>
+                    <a class="btn btn-primary" onclick="UpdateModal(@item.TaskTypeId);">Update Task</a>
+                </td>
+                <td>
+                    @*@Html.ActionLink(" Remove Task ", "Task", "DeleteTask", new { taskTypeId = item.TaskTypeId }, new { @class = "btn btn-Danger" })*@
+                    <a asp-controller="Task" asp-action="RemoveTask" asp-route-taskTypeId="@item.TaskTypeId" class="btn btn-danger">Remove</a>
+                </td>
+            </tr>
+        }
+
+
+    </tbody>
+    <tfoot>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col">Total Hours:</th>
+            <th scope="col">Total Rate:</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col">@Model.Sum(c => c.Duration.Hours)</th>
+            <th scope="col">@Model.Sum(c => c.RatePerHour)</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+    </tfoot>
+</table>

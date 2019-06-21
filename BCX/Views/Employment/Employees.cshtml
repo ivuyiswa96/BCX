@@ -1,0 +1,84 @@
+﻿@model IEnumerable<BCX.Models.Employee>
+
+@section Scripts{
+    <script type="text/javascript">
+        function displayModal(id) {
+            console.log("tesing")
+            $.ajax({
+                type: "GET",
+                url: "/Task/GetTaskModal",
+                data: { employeeId: id },
+                success: function (data) {
+
+                    $("#emp").empty().html(data);
+                    console.log(data);
+                    $("#exampleModal").modal('show');
+                    //  $("#EmployeeId").val(id);
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+
+    </script>
+    
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    
+
+
+}
+
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+    <div class="alert alert-danger">
+        <strong>@ViewBag.ErrorMessage</strong>
+    </div>
+}
+
+<div class="jumbotron ">
+    <h2>Employees </h2>
+</div>
+
+<div class="col-sm-10">
+    <table class="table ">
+        <thead>
+            <tr>
+                <th scope="col">Employee Code</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Email Address</th>
+                <th scope="col">Level</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var employee in Model)
+            {
+                if(employee.EmployeeId > 0)
+                {
+                <tr>
+                    <th scope="row">@employee?.EmpCode</th>
+                    <td>@employee.Person?.FirstName</td>
+                    <td>@employee.Person?.LastName</td>
+                    <td>@employee.Person.ApplicationUser?.Email</td>
+                    <td>@employee?.LevelType.Description</td>
+                    <td>
+                        <a asp-controller="Account" asp-action="UpdatePerson" asp-route-personId="@employee.Person.PersonId" class="btn btn-light">Update</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-primary" onclick="displayModal(@employee.EmployeeId);">
+                            Manange Task
+                        </a>
+
+                    </td>
+                </tr>
+                }
+            }
+
+            <div id="emp"></div>
+        </tbody>
+    </table>
+</div>

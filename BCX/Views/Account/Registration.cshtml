@@ -1,0 +1,110 @@
+﻿@model BCX.Models.RegistrationViewModel
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+    <div class="alert alert-danger">
+        <strong>@ViewBag.ErrorMessage</strong>
+    </div>
+}
+
+
+<div class="jumbotron ">
+    <h2>Registration </h2>
+</div>
+
+
+<form asp-action="Registration" asp-controller="Account" method="post">
+    <div asp-validation-summary="All"></div>
+
+    <div class="container">
+
+        <div class="col-md-12">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Personal Details</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Employment Details</a>
+                </li>
+
+
+            </ul>
+        </div>
+
+        <div>
+            <h3>    Personal Details</h3>
+        </div>
+
+
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <label asp-for="FirstName">First Name</label>
+                <input class="form-control" asp-for="FirstName" />
+                <span asp-validation-for="FirstName"></span>
+            </div>
+
+            <div class="col-sm-6 form-group">
+                <label asp-for="SecondName">Second Name</label>
+                <input class="form-control" asp-for="SecondName" />
+                <span asp-validation-for="SecondName"></span>
+            </div>
+
+            <div class="col-sm-6 form-group">
+                <label asp-for="LastName">Last Name </label>
+                <input class="form-control" asp-for="LastName" />
+                <span asp-validation-for="LastName"></span>
+            </div>
+            <div class="col-sm-6 form-group">
+                <label asp-for="IdNumber">ID Number </label>
+                <input class="form-control" asp-for="IdNumber" />
+                <span asp-validation-for="IdNumber"></span>
+            </div>
+        </div>
+
+
+
+
+        <div>
+            <h3>Account  Details</h3>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 form-group">
+                <label class="form-inline" asp-for="PhoneNumber">Phone Number</label>
+                <input class="form-control" asp-for="PhoneNumber" />
+                <span asp-validation-for="PhoneNumber"></span>
+            </div>
+
+            <div class="col-sm-4 form-group">
+                <label class="form-inline " asp-for="Email">Email Address</label>
+                <input class="form-control" asp-for="Email" />
+                <span asp-validation-for="Email"></span>
+            </div>
+            <div class="col-sm-4 form-group">
+                <label class="form-inline " asp-for="Password">Password</label>
+                <input class="form-control" asp-for="Password" />
+                <span asp-validation-for="Password"></span>
+            </div>
+            <div class="col-sm-4 form-group">
+                <label class="form-inline " asp-for="ConfirmPassword">Confirm Password</label>
+                <input class="form-control" asp-for="ConfirmPassword" />
+                <span asp-validation-for="Password"></span>
+            </div>
+
+        </div>
+
+
+        <div class="btn-group">
+            <input class="btn btn-success" type="submit" value="Registration" />
+        </div>
+    </div>
+
+</form>
+
+
+

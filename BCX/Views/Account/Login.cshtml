@@ -1,0 +1,48 @@
+﻿@model BCX.Models.LoginViewModel
+
+@{
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}0
+
+
+
+<h2>Login Page</h2>
+
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+    <div class="alert alert-danger">
+        <strong>@ViewBag.ErrorMessage</strong>
+    </div>
+}
+<form asp-action="Login" asp-controller="Account" method="post">
+
+
+    <div class="form-group text-center ">
+        <div class="row">
+            <label class="form-inline" asp-for="Email"></label>
+            <input class="form-control" asp-for="Email" />
+            <span asp-validation-for="Email"></span>
+        </div>
+        <div class="row">
+            <label class="form-inline" asp-for="Password"></label>
+            <input class="form-control" asp-for="Password" />
+            <span asp-validation-for="Password"></span>
+        </div>
+
+    </div>
+
+    <div class="btn-group text-center row">
+        <div>
+            <input class="btn btn-block btn-success" type="submit" value="Login" />
+        </div>
+
+
+    </div>
+    <div>
+        <a class="btn btn-block btn-link" asp-action="Registration"> Register Here</a>
+    </div>
+</form>
